@@ -35,5 +35,31 @@ module.exports = webpackMerge(commonConfig, {
   plugins: [
     // webpack.HotModuleReplacementPlugin is necessary for `devServer.hot` above to work.
     new webpack.HotModuleReplacementPlugin()
-  ]
+  ],
+
+  // Configuration specific to webpack-dev-server.
+  devServer: {
+    // historyApiFallback=true causes 404s to redirect back to index.html.
+    // This allows you to reload the React app from any route without receiving a
+    // path not found' error.
+    historyApiFallback: true,
+
+    // Enables Hot Module Replacement when using webpack-dev-server.
+    // Docs: https://webpack.js.org/concepts/hot-module-replacement/
+    hot: true,
+
+    // Host 0.0.0.0 allows the development server to be accessed externally (Docker).
+    // Docs: https://webpack.js.org/configuration/dev-server/#devserver-host
+    host: '0.0.0.0',
+
+    // This property, set to the same value as host, ensures that HMR works within Docker.
+    // Docs: https://webpack.js.org/configuration/dev-server/#devserver-public
+    public: '0.0.0.0',
+
+    port: 3000,
+
+    // The stats property from commonConfig is copied here, so that webpack-dev-server
+    // shows the same output.
+    stats: commonConfig.stats
+  }
 })
