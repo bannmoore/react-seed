@@ -21,3 +21,9 @@ Build the production bundle:
 ```
 npm run build:prod
 ```
+
+## Testing
+
+```
+npm run test
+```
