@@ -1,10 +1,9 @@
 {
-  "name": "the-tavern",
+  "name": "react-seed",
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "MODE=development webpack",
-    "build:prod": "MODE=production webpack",
+    "build": "MODE=production webpack",
     "format": "prettier-standard src/**/*.js src/**/*.jsx config/*.js",
     "start": "MODE=development webpack-dev-server"
   },
