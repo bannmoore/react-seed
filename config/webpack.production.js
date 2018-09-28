@@ -30,7 +30,7 @@ module.exports = webpackMerge(commonConfig, {
           'css-loader',
           {
             loader: 'postcss-loader',
-            options: { config: { path: './config/' } }
+            options: { config: { path: './config/postcss/production/' } }
           }
         ],
         include: [/src\/styles.css/],
@@ -50,7 +50,7 @@ module.exports = webpackMerge(commonConfig, {
           },
           {
             loader: 'postcss-loader',
-            options: { config: { path: './config/' } }
+            options: { config: { path: './config/postcss/production/' } }
           }
         ],
         exclude: [/node_modules/, /src\/styles.css/]

@@ -36,7 +36,7 @@ module.exports = webpackMerge(commonConfig, {
           },
           {
             loader: 'postcss-loader',
-            options: { config: { path: './config/' } }
+            options: { config: { path: './config/postcss/development/' } }
           }
         ],
         exclude: [/node_modules/, /src\/styles.css/]
