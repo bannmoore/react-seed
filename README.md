@@ -27,3 +27,17 @@ npm run build:prod
 ```
 npm run test
 ```
+
+## Docker
+
+This branch includes docker containers for development and production.
+
+Note: This requires Docker and Docker-Compose to be installed on your machine.
+
+```
+docker-compose up -d react-app-dev
+```
+
+```
+docker-compose up -d react-app-prod
+```

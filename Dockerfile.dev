@@ -1,0 +1,16 @@
+FROM node:slim
+
+WORKDIR /opt/app
+
+COPY ./package.json /opt/app/package.json
+COPY ./package-lock.json /opt/app/package-lock.json
+RUN npm install
+
+COPY ./src /opt/app/src
+COPY ./config /opt/app/config
+COPY ./webpack.config.js /opt/app/webpack.config.js
+COPY ./.babelrc /opt/app/.babelrc
+
+EXPOSE 3000
+
+CMD [ "npm", "run", "start" ]
