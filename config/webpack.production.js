@@ -1,5 +1,6 @@
 const path = require('path')
 const webpackMerge = require('webpack-merge')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const commonConfig = require('./webpack.common')
 
 module.exports = webpackMerge(commonConfig, {
@@ -15,19 +16,52 @@ module.exports = webpackMerge(commonConfig, {
 
   module: {
     rules: [
-      // CSS imports from files within the app code are saved in the React app itself.
+      // Load vendor and shared (App.css) styles globally.
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        include: [/node_modules/],
+        exclude: [/src\/styles.css/]
+      },
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: { config: { path: './config/' } }
+          }
+        ],
+        include: [/src\/styles.css/],
+        exclude: [/node_modules/]
+      },
+      // Load all other styles as CSS Modules, which allows for styled React components.
       {
         test: /\.css$/,
         use: [
           'style-loader',
-          { loader: 'css-loader', options: { minimize: true } },
+          {
+            loader: 'css-loader',
+            query: {
+              modules: true,
+              localIdentName: '[name]__[local]___[hash:base64:5]'
+            }
+          },
           {
             loader: 'postcss-loader',
-            options: { config: { path: './config/postcss.config.js' } }
+            options: { config: { path: './config/' } }
           }
         ],
-        exclude: [/node_modules/]
+        exclude: [/node_modules/, /src\/styles.css/]
       }
     ]
-  }
+  },
+
+  plugins: [
+    // MiniCssExtractPlugin allows us to extract styles into isolated css files.
+    new MiniCssExtractPlugin({
+      filename: 'styles/[name].[hash].css'
+    })
+  ]
 })

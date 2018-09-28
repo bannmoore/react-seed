@@ -16,18 +16,30 @@ module.exports = webpackMerge(commonConfig, {
 
   module: {
     rules: [
-      // CSS imports from files within the app code are saved in the React app itself.
+      // Load vendor and shared (styles.css) styles globally.
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+        include: [/node_modules/, /src\/styles.css/]
+      },
+      // Load all other styles as CSS Modules, which allows for styled React components.
       {
         test: /\.css$/,
         use: [
           'style-loader',
-          'css-loader',
+          {
+            loader: 'css-loader',
+            query: {
+              modules: true,
+              localIdentName: '[name]__[local]___[hash:base64:5]'
+            }
+          },
           {
             loader: 'postcss-loader',
-            options: { config: { path: './config/postcss.config.js' } }
+            options: { config: { path: './config/' } }
           }
         ],
-        exclude: [/node_modules/]
+        exclude: [/node_modules/, /src\/styles.css/]
       }
     ]
   },

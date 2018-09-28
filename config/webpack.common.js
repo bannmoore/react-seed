@@ -1,7 +1,5 @@
 const path = require('path')
-const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   entry: './src/index.js',
@@ -22,14 +20,6 @@ module.exports = {
       {
         test: /\.(jpg|png|gif|otf|ttf|woff|woff2|cur|ani)$/,
         use: 'url-loader?name=assets/[name].[hash:20].[ext]&limit=10000'
-      },
-      // CSS imports from node_modules are extracted into an external stylesheet.
-      {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract({
-          use: [{ loader: 'css-loader', options: { minimize: true } }]
-        }),
-        include: [/node_modules/]
       }
     ]
   },
@@ -38,9 +28,7 @@ module.exports = {
     // HtmlWebpackPlugin automatically generates an index.html file based on the provided template.
     new HtmlWebpackPlugin({
       template: './config/index.template.html'
-    }),
-    // ExtractTextPlugin allows us to extract certain styles to be loaded separately from the app.
-    new ExtractTextPlugin('styles/[name].css')
+    })
   ],
 
   resolve: {
