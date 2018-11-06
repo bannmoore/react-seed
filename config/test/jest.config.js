@@ -15,6 +15,11 @@ module.exports = {
     '!src/App.js',
   ],
 
+  // resolves CSS Module class names while testing
+  moduleNameMapper: {
+    '\\.(css)$': 'identity-obj-proxy',
+  },
+
   // specify patterns that locate test files
   testMatch: [
     '<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}',
